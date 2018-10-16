@@ -78,8 +78,7 @@ module Fastlane
 
           FastlaneCore::ConfigItem.new(key: :nuget,
                                        env_name: "NUGET_PATH",
-                                       description: "",
-                                       default_value: "Path to `nuget`. Default value is found by using `which nuget`",
+                                       description: "Path to `nuget`. Default value is found by using `which nuget`",
                                        optional: true,
                                        type: String)
         ]
