@@ -36,10 +36,10 @@ module Fastlane
         command.push("/p:EnableLLVM=#{params[:android_enable_llvm]}") unless params[:android_enable_llvm].nil?
         command.push("/p:EnableProguard=#{params[:android_enable_proguard]}") unless params[:android_enable_proguard].nil?
         command.push("/p:AndroidKeyStore=#{params[:android_keystore]}") unless params[:android_keystore].nil?
-        command.push("/p:AndroidSigningKeyAlias=#{params[:android_signing_keystore]}") unless params[:android_signing_keystore].nil?
-        command.push("/p:AndroidSigningKeyPass=#{params[:android_signing_storepass]}") unless params[:android_signing_storepass].nil?
-        command.push("/p:AndroidSigningKeyStore=#{params[:android_signing_keyalias]}") unless params[:android_signing_keyalias].nil?
-        command.push("/p:AndroidSigningStorePass=#{params[:android_signing_keypass]}") unless params[:android_signing_keypass].nil?
+        command.push("/p:AndroidSigningKeyAlias=#{params[:android_signing_keyalias]}") unless params[:android_signing_keyalias].nil?
+        command.push("/p:AndroidSigningKeyPass=#{params[:android_signing_keypass]}") unless params[:android_signing_keypass].nil?
+        command.push("/p:AndroidSigningKeyStore=#{params[:android_signing_keystore]}") unless params[:android_signing_keystore].nil?
+        command.push("/p:AndroidSigningStorePass=#{params[:android_signing_storepass]}") unless params[:android_signing_storepass].nil?
 
         exit_status = 0
         result = FastlaneCore::CommandExecutor.execute(command: command,
@@ -57,6 +57,7 @@ module Fastlane
 
             if file.include? "Signed"
               Actions.lane_context[SharedValues::XAMARIN_ANDROID_APK_SIGNED] = file
+              Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH] = file
             else
               Actions.lane_context[SharedValues::XAMARIN_ANDROID_APK] = file
             end
