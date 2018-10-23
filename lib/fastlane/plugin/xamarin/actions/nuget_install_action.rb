@@ -30,6 +30,8 @@ module Fastlane
         else
           command.push("normal")
         end
+        command.push("-NonInteractive")
+
 
         exit_status = 0
         result = FastlaneCore::CommandExecutor.execute(command: command,
@@ -70,13 +72,13 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :config_file_path,
                                        env_name: "NUGET_CONFIGFILEPATH",
                                        description: "Identifies the packages.config file that lists the packages to install",
-                                       optional: false,
+                                       optional: true,
                                        type: String),
 
           FastlaneCore::ConfigItem.new(key: :package_id,
                                        env_name: "NUGET_PACKAGEID",
                                        description: "The package to install (using the latest version)",
-                                       optional: false,
+                                       optional: true,
                                        type: String),
 
           FastlaneCore::ConfigItem.new(key: :nuget,

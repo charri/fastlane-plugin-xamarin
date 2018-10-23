@@ -23,6 +23,7 @@ module Fastlane
         command.push(nuget)
         command.push("restore")
         command.push(params[:project_path])
+        command.push("-NonInteractive")
 
         exit_status = 0
         result = FastlaneCore::CommandExecutor.execute(command: command,
