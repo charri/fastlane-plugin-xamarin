@@ -7,11 +7,17 @@ module Fastlane
       def self.run(params)
         
         Dir.glob('**/bin').each do |f| 
-          FileUtils.rm_rf(f) if File.directory?(f)
+          if File.directory?(f)
+            UI.message("Deleting #{f}") if FastlaneCore::Globals.verbose?
+            FileUtils.rm_rf(f) 
+          end
         end
 
         Dir.glob('**/obj').each do |f| 
-          FileUtils.rm_rf(f) if File.directory?(f)
+          if File.directory?(f)
+            UI.message("Deleting #{f}") if FastlaneCore::Globals.verbose?
+            FileUtils.rm_rf(f) 
+          end
         end
         
       end
@@ -36,11 +42,10 @@ module Fastlane
       def self.available_options
         [
         ]
-
       end
 
       def self.is_supported?(platform)
-        [:android, :ios].include?(platform)
+        [:android, :ios, :mac].include?(platform)
       end
     end
   end

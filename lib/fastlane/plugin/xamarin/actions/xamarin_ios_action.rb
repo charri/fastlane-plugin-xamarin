@@ -36,6 +36,12 @@ module Fastlane
         command.push("/p:CodesignKey=#{params[:codesign_key]}") unless params[:codesign_key].nil?
         command.push("/p:CodesignProvision=#{params[:codesign_provision]}") unless params[:codesign_provision].nil?
 
+        if FastlaneCore::Globals.verbose?
+          command.push("/v:d")
+        else
+          command.push("/v:m")
+        end
+
         exit_status = 0
         result = FastlaneCore::CommandExecutor.execute(command: command,
                                         print_command: true,
@@ -76,7 +82,7 @@ module Fastlane
           )
 
         else
-          UI.error("Unable to build - see log for more info")
+          UI.error!("Unable to build - see log for more info")
         end
         
 

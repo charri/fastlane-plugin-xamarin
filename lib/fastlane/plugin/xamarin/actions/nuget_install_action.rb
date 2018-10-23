@@ -1,8 +1,6 @@
 module Fastlane
   module Actions
-   
-
-    class NugetRestoreAction < Action
+    class NugetInstallAction < Action
       def self.run(params)
         
         nuget = params[:nuget] || FastlaneCore::CommandExecutor.which('nuget')
@@ -21,8 +19,17 @@ module Fastlane
         command = Array.new
 
         command.push(nuget)
-        command.push("restore")
-        command.push(params[:project_path])
+        command.push("install")
+        command.push(params[:config_file_path] || params[:package_id])
+        command.push("-OutputDirectory") unless params[:output_directory].nil?
+        command.push(params[:output_directory]) unless params[:output_directory].nil?
+
+        command.push("-Verbosity")
+        if FastlaneCore::Globals.verbose?
+          command.push("detailed")
+        else
+          command.push("normal")
+        end
 
         exit_status = 0
         result = FastlaneCore::CommandExecutor.execute(command: command,
@@ -60,9 +67,15 @@ module Fastlane
 
       def self.available_options
         [
-          FastlaneCore::ConfigItem.new(key: :project_path,
-                                       env_name: "NUGET_SOLUTION",
-                                       description: "The location of a solution or a packages.config",
+          FastlaneCore::ConfigItem.new(key: :config_file_path,
+                                       env_name: "NUGET_CONFIGFILEPATH",
+                                       description: "Identifies the packages.config file that lists the packages to install.",
+                                       optional: false,
+                                       type: String),
+
+          FastlaneCore::ConfigItem.new(key: :package_id,
+                                       env_name: "NUGET_PACKAGEID",
+                                       description: "The package to install (using the latest version)",
                                        optional: false,
                                        type: String),
 
@@ -70,7 +83,13 @@ module Fastlane
                                        env_name: "NUGET_PATH",
                                        description: "Path to `nuget`. Default value is found by using `which nuget`",
                                        optional: true,
-                                       type: String)
+                                       type: String),
+
+          FastlaneCore::ConfigItem.new(key: :output_directory,
+                                       env_name: "NUGET_OUTPUT_DIRECTORY",
+                                       description: "Specifies the folder in which packages are installed. If no folder is specified, the current folder is used.",
+                                       optional: true,
+                                       type: String),
         ]
 
       end
