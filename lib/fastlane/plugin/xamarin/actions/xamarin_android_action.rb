@@ -195,7 +195,7 @@ module Fastlane
                                        type: String), 
 
           FastlaneCore::ConfigItem.new(key: :android_signing_keyalias,
-                                       env_name: "XAMARIN_ANDROIDSINGINGKEYALIAS",
+                                       env_name: "XAMARIN_ANDROIDSIGNINGKEYALIAS",
                                        description: "Specifies the filename of the keystore file created by keytool",
                                        optional: true,
                                        type: String), 
