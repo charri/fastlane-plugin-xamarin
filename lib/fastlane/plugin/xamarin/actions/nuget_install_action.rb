@@ -69,7 +69,7 @@ module Fastlane
         [
           FastlaneCore::ConfigItem.new(key: :config_file_path,
                                        env_name: "NUGET_CONFIGFILEPATH",
-                                       description: "Identifies the packages.config file that lists the packages to install.",
+                                       description: "Identifies the packages.config file that lists the packages to install",
                                        optional: false,
                                        type: String),
 
@@ -87,7 +87,7 @@ module Fastlane
 
           FastlaneCore::ConfigItem.new(key: :output_directory,
                                        env_name: "NUGET_OUTPUT_DIRECTORY",
-                                       description: "Specifies the folder in which packages are installed. If no folder is specified, the current folder is used.",
+                                       description: "Specifies the folder in which packages are installed. If no folder is specified, the current folder is used",
                                        optional: true,
                                        type: String),
         ]
