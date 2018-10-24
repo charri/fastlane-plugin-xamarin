@@ -76,7 +76,7 @@ module Fastlane
           )
 
         else
-          UI.error!("Unable to build - see log for more info")
+          UI.user_error!("Unable to build - see log for more info")
         end
         
 

@@ -44,7 +44,7 @@ module Fastlane
         if exit_status == 0
           UI.success("Successfully executed nuget")
         else
-          UI.error!("Uhh ohh - failed executing nuget")
+          UI.user_error!("Uhh ohh - failed executing nuget")
         end
         
 
